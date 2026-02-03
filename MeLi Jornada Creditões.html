@@ -1,0 +1,1020 @@
+<!doctype html>
+<html lang="pt-BR" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sua Jornada Creditões</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+      font-family: 'Montserrat', 'Proxima Nova', sans-serif;
+    }
+    
+    .path-line {
+      stroke-dasharray: 8, 8;
+      animation: dash 20s linear infinite;
+    }
+    
+    @keyframes dash {
+      to {
+        stroke-dashoffset: -100;
+      }
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+    
+    .step-card {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .step-card:hover {
+      transform: translateY(-6px) scale(1.02);
+    }
+    
+    .step-icon {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    .step-card:nth-child(2) .step-icon { animation-delay: 0.5s; }
+    .step-card:nth-child(3) .step-icon { animation-delay: 1s; }
+    .step-card:nth-child(4) .step-icon { animation-delay: 1.5s; }
+    
+    .nav-dot {
+      transition: all 0.3s ease;
+    }
+    
+    .nav-dot.active {
+      transform: scale(1.3);
+    }
+    
+    .page-transition {
+      animation: slideIn 0.4s ease-out;
+    }
+    
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .audio-player {
+      transition: all 0.3s ease;
+    }
+    
+    .audio-player.expanded {
+      max-height: 200px;
+    }
+    
+    .progress-ring {
+      transition: stroke-dashoffset 0.5s ease;
+    }
+    
+    .glow-effect {
+      box-shadow: 0 0 20px rgba(0, 188, 255, 0.3);
+    }
+    
+    .header-fixed {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: linear-gradient(135deg, #00BCFF 0%, #00a8e6 100%);
+    }
+
+    .media-box {
+      transition: all 0.3s ease;
+    }
+
+    .media-content {
+      max-height: 500px;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+    }
+
+    .media-content.hidden {
+      max-height: 0;
+      overflow: hidden;
+    }
+
+    .text-chevron {
+      transition: transform 0.4s ease;
+    }
+
+    .text-chevron.rotated {
+      transform: rotate(180deg);
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full bg-gray-50">
+  <div id="app-wrapper" class="w-full h-full overflow-auto"><!-- Header Fixo -->
+   <header class="header-fixed shadow-lg">
+    <div class="max-w-6xl mx-auto px-4 py-4"><!-- Linha com logos e título -->
+     <div class="flex items-center justify-between gap-4 mb-4"><!-- Logo Esquerda --> <img src="https://qualistore-multi.atento.com.br/uploads/qualimidia/conteudo_22264/9840186135e15bf8e5f3807c41e2f9f329906199200017045531fec063dc9846.png" alt="Logo Esquerda" class="w-32 h-12 object-contain"> <!-- Título Central -->
+      <h1 id="main-title" class="text-2xl md:text-3xl font-extrabold text-white text-center tracking-tight">Sua Jornada Creditões</h1><!-- Logo Direita --> <img src="https://qualistore-multi.atento.com.br/uploads/qualimidia/conteudo_22264/6f540ba5114e40cef7763bb394912df70cedb46a0d5ec15a4456d495bcf6cb74.png" alt="Logo Direita" class="w-32 h-12 object-contain">
+     </div><!-- Navegação com bolinhas -->
+     <nav class="flex items-center justify-center gap-2 md:gap-3"><!-- Botão Home --> <button id="home-btn" class="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-all flex-shrink-0" title="Início">
+       <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+       </svg></button> <!-- Separador -->
+      <div class="w-px h-6 bg-white/30 flex-shrink-0"></div><!-- Container da barra de progresso -->
+      <div class="flex-1 flex items-center gap-1.5 md:gap-2.5 min-w-0"><!-- Bolinhas de navegação -->
+       <div class="flex items-center gap-1.5 md:gap-2.5"><button class="nav-dot w-3 h-3 md:w-4 md:h-4 rounded-full bg-[#FFE600] border-2 border-white shadow-md flex-shrink-0 transition-all" data-step="1" title="Etapa 1"></button>
+       </div><!-- Barra 1 -->
+       <div class="flex-1 h-1 bg-white/40 rounded-full overflow-hidden min-w-0 transition-all" id="bar-1">
+        <div class="h-full bg-[#FFE600] w-0 transition-all duration-500"></div>
+       </div><!-- Bolinha 2 -->
+       <div class="flex items-center"><button class="nav-dot w-3 h-3 md:w-4 md:h-4 rounded-full bg-white/40 border-2 border-white/60 flex-shrink-0 transition-all" data-step="2" title="Etapa 2"></button>
+       </div><!-- Barra 2 -->
+       <div class="flex-1 h-1 bg-white/40 rounded-full overflow-hidden min-w-0 transition-all" id="bar-2">
+        <div class="h-full bg-[#FFE600] w-0 transition-all duration-500"></div>
+       </div><!-- Bolinha 3 -->
+       <div class="flex items-center"><button class="nav-dot w-3 h-3 md:w-4 md:h-4 rounded-full bg-white/40 border-2 border-white/60 flex-shrink-0 transition-all" data-step="3" title="Etapa 3"></button>
+       </div><!-- Barra 3 -->
+       <div class="flex-1 h-1 bg-white/40 rounded-full overflow-hidden min-w-0 transition-all" id="bar-3">
+        <div class="h-full bg-[#FFE600] w-0 transition-all duration-500"></div>
+       </div><!-- Bolinha 4 -->
+       <div class="flex items-center"><button class="nav-dot w-3 h-3 md:w-4 md:h-4 rounded-full bg-white/40 border-2 border-white/60 flex-shrink-0 transition-all" data-step="4" title="Etapa 4"></button>
+       </div>
+      </div>
+     </nav>
+    </div>
+   </header><!-- Conteúdo Principal -->
+   <main id="main-content" class="w-full"><!-- Página Inicial - Trilha -->
+    <section id="home-page" class="page-transition py-8 px-4">
+     <div class="max-w-4xl mx-auto"><!-- Subtítulo -->
+      <p class="text-center text-[#333333] mb-8 text-lg">Explore cada etapa e domine o mundo do crédito</p><!-- Trilha Visual -->
+      <div class="relative"><!-- Linha da trilha SVG -->
+       <svg class="absolute inset-0 w-full h-full pointer-events-none" style="z-index: 0;"><path class="path-line" d="M 50% 80 Q 30% 200 50% 320 Q 70% 440 50% 560 Q 30% 680 50% 800" stroke="#00BCFF" stroke-width="3" fill="none" opacity="0.4" />
+       </svg><!-- Cards das Etapas -->
+       <div class="relative z-10 space-y-6"><!-- Etapa 1 -->
+        <div class="step-card bg-white rounded-2xl p-6 shadow-lg border-l-4 border-[#00BCFF] cursor-pointer hover:shadow-xl ml-0 md:ml-8" data-step="1">
+         <div class="flex items-center gap-4">
+          <div class="step-icon w-16 h-16 rounded-full bg-gradient-to-br from-[#00BCFF] to-[#0090cc] flex items-center justify-center shadow-lg glow-effect">
+           <svg class="w-8 h-8 text-white" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
+           </svg>
+          </div>
+          <div class="flex-1">
+           <div class="flex items-center gap-2 mb-1"><span class="px-2 py-0.5 bg-[#FFE600] text-[#333333] text-xs font-bold rounded-full">ETAPA 1</span>
+           </div>
+           <h3 id="step-1-title" class="text-lg font-bold text-[#333333]">A história do cartão de crédito</h3>
+           <p class="text-sm text-gray-500 mt-1">Descubra como tudo começou</p>
+          </div>
+          <svg class="w-6 h-6 text-[#00BCFF]" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+         </div>
+        </div><!-- Etapa 2 -->
+        <div class="step-card bg-white rounded-2xl p-6 shadow-lg border-l-4 border-[#FFE600] cursor-pointer hover:shadow-xl ml-0 md:mr-8 md:ml-auto" data-step="2">
+         <div class="flex items-center gap-4">
+          <div class="step-icon w-16 h-16 rounded-full bg-gradient-to-br from-[#FFE600] to-[#e6cf00] flex items-center justify-center shadow-lg">
+           <svg class="w-8 h-8 text-[#333333]" fill="currentColor" viewbox="0 0 24 24"><path d="M19 6h-2V4a2 2 0 00-2-2H9a2 2 0 00-2 2v2H5a3 3 0 00-3 3v10a3 3 0 003 3h14a3 3 0 003-3V9a3 3 0 00-3-3zm-8-2h4v2h-4V4zm8 16H5V9h14v11z" />
+           </svg>
+          </div>
+          <div class="flex-1">
+           <div class="flex items-center gap-2 mb-1"><span class="px-2 py-0.5 bg-[#00BCFF] text-white text-xs font-bold rounded-full">ETAPA 2</span>
+           </div>
+           <h3 id="step-2-title" class="text-lg font-bold text-[#333333]">Cartão de crédito e Empréstimo - Limite de crédito</h3>
+           <p class="text-sm text-gray-500 mt-1">Entenda como funciona seu limite</p>
+          </div>
+          <svg class="w-6 h-6 text-[#FFE600]" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+         </div>
+        </div><!-- Etapa 3 -->
+        <div class="step-card bg-white rounded-2xl p-6 shadow-lg border-l-4 border-[#00BCFF] cursor-pointer hover:shadow-xl ml-0 md:ml-8" data-step="3">
+         <div class="flex items-center gap-4">
+          <div class="step-icon w-16 h-16 rounded-full bg-gradient-to-br from-[#00BCFF] to-[#0090cc] flex items-center justify-center shadow-lg glow-effect">
+           <svg class="w-8 h-8 text-white" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+           </svg>
+          </div>
+          <div class="flex-1">
+           <div class="flex items-center gap-2 mb-1"><span class="px-2 py-0.5 bg-[#FFE600] text-[#333333] text-xs font-bold rounded-full">ETAPA 3</span>
+           </div>
+           <h3 id="step-3-title" class="text-lg font-bold text-[#333333]">Critérios de Créditos</h3>
+           <p class="text-sm text-gray-500 mt-1">O que é avaliado na análise</p>
+          </div>
+          <svg class="w-6 h-6 text-[#00BCFF]" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+         </div>
+        </div><!-- Etapa 4 -->
+        <div class="step-card bg-white rounded-2xl p-6 shadow-lg border-l-4 border-[#ffe404] cursor-pointer hover:shadow-xl ml-0 md:mr-8 md:ml-auto" data-step="4">
+         <div class="flex items-center gap-4">
+          <div class="step-icon w-16 h-16 rounded-full bg-gradient-to-br from-[#ffe404] to-[#e6cf00] flex items-center justify-center shadow-lg">
+           <svg class="w-8 h-8 text-[#333333]" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+           </svg>
+          </div>
+          <div class="flex-1">
+           <div class="flex items-center gap-2 mb-1"><span class="px-2 py-0.5 bg-[#00BCFF] text-white text-xs font-bold rounded-full">ETAPA 4</span>
+           </div>
+           <h3 id="step-4-title" class="text-lg font-bold text-[#333333]">Elegibilidade</h3>
+           <p class="text-sm text-gray-500 mt-1">Verifique sua qualificação</p>
+          </div>
+          <svg class="w-6 h-6 text-[#ffe404]" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+         </div>
+        </div>
+       </div>
+      </div><!-- Progresso Geral -->
+      <div class="mt-10 bg-white rounded-2xl p-6 shadow-lg">
+       <div class="flex items-center justify-between mb-3"><span class="text-sm font-semibold text-[#333333]">Progresso da Jornada</span> <span id="progress-text" class="text-sm font-bold text-[#00BCFF]">0% completo</span>
+       </div>
+       <div class="h-3 bg-gray-200 rounded-full overflow-hidden">
+        <div id="progress-bar" class="h-full bg-gradient-to-r from-[#00BCFF] to-[#FFE600] rounded-full transition-all duration-500" style="width: 0%"></div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Página Etapa 1 -->
+    <section id="step-1-page" class="hidden page-transition py-8 px-4">
+     <div class="max-w-3xl mx-auto">
+      <div class="bg-white rounded-2xl shadow-xl overflow-hidden"><!-- Header da etapa -->
+       <div class="bg-gradient-to-r from-[#00BCFF] to-[#0090cc] p-6">
+        <div class="flex items-center gap-4">
+         <div class="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center">
+          <svg class="w-7 h-7 text-white" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
+          </svg>
+         </div>
+         <div><span class="text-white/80 text-sm font-medium">ETAPA 1</span>
+          <h2 class="text-xl font-bold text-white">A história do cartão de crédito</h2>
+         </div>
+        </div>
+       </div><!-- Conteúdo -->
+       <div class="p-6"><!-- Media Box: Áudio + Texto em uma única caixa -->
+        <div class="media-box mb-6 p-4 bg-[#00BCFF]/10 rounded-xl border border-[#00BCFF]/20"><!-- Áudio -->
+         <audio controls class="w-full mb-3" id="audio-1"><source src="https://qualistore-multi.atento.com.br/uploads/qualimidia/conteudo_22264/080fd3d9dfe89571b8ddfea9517e17eed600f1606017a43ee3122db004d33969.mp3" type="audio/mpeg"> Seu navegador não suporta áudio.
+         </audio><!-- Botão para expandir texto --> <button class="text-toggle w-full flex items-center justify-between p-3 bg-white/50 border border-[#00BCFF]/20 rounded-lg hover:bg-white/70 transition-all">
+          <div class="text-left">
+           <h4 class="font-semibold text-[#333333] text-sm flex items-center gap-2">
+            <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" />
+            </svg> Acompanhar com texto</h4>
+          </div>
+          <svg class="w-5 h-5 text-[#333333] text-chevron" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg></button> <!-- Texto descritivo expansível -->
+         <div class="media-content hidden pt-3 mt-3 border-t border-[#00BCFF]/20">
+          <div class="text-content-wrapper space-y-3" id="text-content-1"><!-- Parágrafo 1 -->
+           <div class="border-l-3 border-[#00BCFF] pl-4">
+            <p class="text-[#333333] text-sm leading-relaxed">Antes do cartão de crédito, as compras eram feitas principalmente com dinheiro, cheque ou fiado. Isso exigia pagamento imediato ou uma relação de confiança direta entre cliente e comerciante, o que funcionava em um comércio mais simples e local.</p>
+           </div><!-- Parágrafo 2 -->
+           <div class="border-l-3 border-[#00BCFF] pl-4">
+            <p class="text-[#333333] text-sm leading-relaxed">Com o crescimento das cidades, da indústria e do consumo, surgiu uma necessidade clara: permitir que as pessoas comprassem mesmo sem ter todo o valor disponível no momento. O crédito passou a ser essencial para ampliar o poder de compra e facilitar o acesso a produtos mais caros, algo muito relevante no contexto brasileiro.</p>
+           </div><!-- Parágrafo 3 -->
+           <div class="border-l-3 border-[#00BCFF] pl-4">
+            <p class="text-[#333333] text-sm leading-relaxed">O cartão de crédito surgiu nos Estados Unidos, nos anos 1950, e chegou ao Brasil no final dos anos 60. No início, era restrito a poucos clientes e aceito em poucos estabelecimentos. Com o tempo, os bancos perceberam o cartão como uma forma eficiente de oferecer crédito, fidelizar clientes e impulsionar o consumo.</p>
+           </div><!-- Parágrafo 4 -->
+           <div class="border-l-3 border-[#00BCFF] pl-4">
+            <p class="text-[#333333] text-sm leading-relaxed">A partir dos anos 90, com a estabilização da economia e o avanço da tecnologia, o cartão se popularizou no Brasil. O parcelamento sem juros se tornou um diferencial importante, junto com mais segurança, compras online e pagamentos por aproximação.</p>
+           </div><!-- Parágrafo 5 -->
+           <div class="border-l-3 border-[#00BCFF] pl-4">
+            <p class="text-[#333333] text-sm leading-relaxed">Hoje, o cartão de crédito é mais do que um meio de pagamento: é uma ferramenta central na experiência de consumo e no relacionamento com o cliente. Compreender sua história nos ajuda a entender melhor como usá-lo de forma responsável e estratégica.</p>
+           </div>
+          </div>
+         </div>
+        </div><!-- Quiz da Etapa 1 -->
+        <div class="mt-8 p-6 bg-gradient-to-r from-[#00BCFF]/5 to-[#FFE600]/5 rounded-xl border-2 border-[#00BCFF]/20" data-quiz="1">
+         <div class="flex items-center gap-3 mb-5">
+          <svg class="w-6 h-6 text-[#00BCFF]" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+          </svg>
+          <h4 class="font-bold text-lg text-[#333333]">Teste seu conhecimento</h4>
+         </div>
+         <div class="quiz-questions space-y-4"><!-- Pergunta 1 -->
+          <div class="quiz-question bg-white p-4 rounded-lg" data-question="1">
+           <p class="font-semibold text-[#333333] mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#00BCFF] flex-shrink-0" fill="currentColor" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" /> <text x="12" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">
+              1
+             </text>
+            </svg><span>Antes do cartão de crédito, quais eram as principais formas de pagamento usadas nas compras?</span></p>
+           <div class="space-y-2"><label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q1_etapa1" value="a" class="w-4 h-4 text-[#00BCFF]"> <span class="ml-3 text-gray-700">Apenas dinheiro</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q1_etapa1" value="b" class="w-4 h-4 text-[#00BCFF]"> <span class="ml-3 text-gray-700">Boleto e transferência</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="true"> <input type="radio" name="q1_etapa1" value="c" class="w-4 h-4 text-[#00BCFF]"> <span class="ml-3 text-gray-700">Dinheiro, cheque e fiado</span> </label>
+           </div>
+          </div><!-- Pergunta 2 (oculta) -->
+          <div class="quiz-question hidden bg-white p-4 rounded-lg" data-question="2">
+           <p class="font-semibold text-[#333333] mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#00BCFF] flex-shrink-0" fill="currentColor" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" /> <text x="12" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">
+              2
+             </text>
+            </svg><span>Em que período o cartão de crédito chegou ao Brasil?</span></p>
+           <div class="space-y-2"><label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q2_etapa1" value="a" class="w-4 h-4 text-[#00BCFF]"> <span class="ml-3 text-gray-700">Final dos anos 50</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="true"> <input type="radio" name="q2_etapa1" value="b" class="w-4 h-4 text-[#00BCFF]"> <span class="ml-3 text-gray-700">Final dos anos 60</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q2_etapa1" value="c" class="w-4 h-4 text-[#00BCFF]"> <span class="ml-3 text-gray-700">Anos 2000</span> </label>
+           </div>
+          </div><!-- Pergunta 3 (oculta) -->
+          <div class="quiz-question hidden bg-white p-4 rounded-lg" data-question="3">
+           <p class="font-semibold text-[#333333] mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#00BCFF] flex-shrink-0" fill="currentColor" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" /> <text x="12" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">
+              3
+             </text>
+            </svg><span>Qual característica se tornou um diferencial importante do cartão de crédito no Brasil?</span></p>
+           <div class="space-y-2"><label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q3_etapa1" value="a" class="w-4 h-4 text-[#00BCFF]"> <span class="ml-3 text-gray-700">Compras apenas à vista</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q3_etapa1" value="b" class="w-4 h-4 text-[#00BCFF]"> <span class="ml-3 text-gray-700">Uso exclusivo internacional</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="true"> <input type="radio" name="q3_etapa1" value="c" class="w-4 h-4 text-[#00BCFF]"> <span class="ml-3 text-gray-700">Parcelamento sem juros</span> </label>
+           </div>
+          </div>
+         </div>
+         <div class="quiz-result hidden mt-4 p-4 rounded-lg"></div>
+        </div><!-- Navegação -->
+        <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-200"><button class="back-to-home flex items-center gap-2 text-gray-500 hover:text-[#00BCFF] transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg><span class="font-medium">Voltar</span> </button> <button class="next-step flex items-center gap-2 px-5 py-2.5 bg-[#00BCFF] text-white rounded-full font-semibold hover:bg-[#0090cc] transition-all" data-next="2"> <span>Próxima etapa</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg></button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Página Etapa 2 -->
+    <section id="step-2-page" class="hidden page-transition py-8 px-4">
+     <div class="max-w-3xl mx-auto">
+      <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+       <div class="bg-gradient-to-r from-[#FFE600] to-[#e6cf00] p-6">
+        <div class="flex items-center gap-4">
+         <div class="w-14 h-14 rounded-full bg-[#333333]/10 flex items-center justify-center">
+          <svg class="w-7 h-7 text-[#333333]" fill="currentColor" viewbox="0 0 24 24"><path d="M19 6h-2V4a2 2 0 00-2-2H9a2 2 0 00-2 2v2H5a3 3 0 00-3 3v10a3 3 0 003 3h14a3 3 0 003-3V9a3 3 0 00-3-3zm-8-2h4v2h-4V4zm8 16H5V9h14v11z" />
+          </svg>
+         </div>
+         <div><span class="text-[#333333]/70 text-sm font-medium">ETAPA 2</span>
+          <h2 class="text-xl font-bold text-[#333333]">Cartão de crédito e Empréstimo - Limite de crédito</h2>
+         </div>
+        </div>
+       </div>
+       <div class="p-6"><!-- Media Box: Áudio + Texto em uma única caixa -->
+        <div class="media-box mb-6 p-4 bg-[#FFE600]/10 rounded-xl border border-[#FFE600]/20"><!-- Áudio -->
+         <audio controls class="w-full mb-3" id="audio-2"><source src="https://qualistore-multi.atento.com.br/uploads/qualimidia/conteudo_22264/c55b66cf3ccc346d07375c32f1a23130060b9713f274177a7a2d6c4105d5d693.mp3" type="audio/mpeg"> Seu navegador não suporta áudio.
+         </audio><!-- Botão para expandir texto --> <button class="text-toggle w-full flex items-center justify-between p-3 bg-white/50 border border-[#FFE600]/20 rounded-lg hover:bg-white/70 transition-all">
+          <div class="text-left">
+           <h4 class="font-semibold text-[#333333] text-sm flex items-center gap-2">
+            <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" />
+            </svg> Acompanhar com texto</h4>
+          </div>
+          <svg class="w-5 h-5 text-[#333333] text-chevron" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg></button> <!-- Texto descritivo expansível -->
+         <div class="media-content hidden pt-3 mt-3 border-t border-[#FFE600]/20">
+          <div class="space-y-3" id="text-content-2"><!-- Parágrafo 1 -->
+           <div class="border-l-3 border-[#FFE600] pl-4">
+            <p class="text-[#333333] text-sm leading-relaxed">O cartão de crédito e o empréstimo são duas formas diferentes de acesso ao crédito, mas partem do mesmo princípio: a instituição financeira disponibiliza um valor para o cliente usar agora e pagar depois.</p>
+           </div><!-- Parágrafo 2 -->
+           <div class="border-l-3 border-[#FFE600] pl-4">
+            <p class="text-[#333333] text-sm leading-relaxed">No cartão de crédito, o cliente tem um limite pré-aprovado para fazer compras do dia a dia. Esse limite funciona de forma rotativa: conforme a fatura é paga, o limite é liberado novamente. Os juros só aparecem quando o cliente não paga o valor total da fatura.</p>
+           </div><!-- Parágrafo 3 -->
+           <div class="border-l-3 border-[#FFE600] pl-4">
+            <p class="text-[#333333] text-sm leading-relaxed">No empréstimo, o funcionamento é diferente. O valor é liberado de uma vez, direto para o cliente, e o pagamento acontece em parcelas fixas, com juros definidos desde o início. Aqui, o valor não se recompõe conforme as parcelas são pagas.</p>
+           </div><!-- Parágrafo 4 -->
+           <div class="border-l-3 border-[#FFE600] pl-4">
+            <p class="text-[#333333] text-sm leading-relaxed font-semibold">O ponto em comum entre o cartão de crédito e o empréstimo é o limite de crédito.</p>
+            <p class="text-[#333333] text-sm leading-relaxed">O limite representa quanto a instituição entende que o cliente consegue pagar, com base em renda, histórico financeiro e relacionamento.</p>
+           </div><!-- Parágrafo 5 -->
+           <div class="border-l-3 border-[#FFE600] pl-4">
+            <p class="text-[#333333] text-sm leading-relaxed">No cartão, o limite define até onde o cliente pode gastar.<br>
+              No empréstimo, ele ajuda a definir quanto pode ser liberado e em quais condições.</p>
+           </div><!-- Parágrafo 6 -->
+           <div class="border-l-3 border-[#FFE600] pl-4">
+            <p class="text-[#333333] text-sm leading-relaxed">Por isso, o limite de crédito é uma ferramenta importante de controle, que busca equilibrar acesso ao crédito, capacidade de pagamento e segurança para o cliente e para a instituição.</p>
+           </div>
+          </div>
+         </div>
+        </div><!-- Quiz da Etapa 2 -->
+        <div class="mt-8 p-6 bg-gradient-to-r from-[#FFE600]/10 to-[#00BCFF]/5 rounded-xl border-2 border-[#FFE600]/20" data-quiz="2">
+         <div class="flex items-center gap-3 mb-5">
+          <svg class="w-6 h-6 text-[#FFE600]" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+          </svg>
+          <h4 class="font-bold text-lg text-[#333333]">Teste seu conhecimento</h4>
+         </div>
+         <div class="quiz-questions space-y-4"><!-- Pergunta 1 -->
+          <div class="quiz-question bg-white p-4 rounded-lg" data-question="1">
+           <p class="font-semibold text-[#333333] mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#FFE600] flex-shrink-0" fill="currentColor" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" /> <text x="12" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">
+              1
+             </text>
+            </svg><span>No cartão de crédito, o que acontece com o limite após o pagamento da fatura?</span></p>
+           <div class="space-y-2"><label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q1_etapa2" value="a" class="w-4 h-4 text-[#FFE600]"> <span class="ml-3 text-gray-700">Ele é cancelado</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q1_etapa2" value="b" class="w-4 h-4 text-[#FFE600]"> <span class="ml-3 text-gray-700">Ele diminui definitivamente</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="true"> <input type="radio" name="q1_etapa2" value="c" class="w-4 h-4 text-[#FFE600]"> <span class="ml-3 text-gray-700">Ele é recomposto conforme o valor pago</span> </label>
+           </div>
+          </div><!-- Pergunta 2 (oculta) -->
+          <div class="quiz-question hidden bg-white p-4 rounded-lg" data-question="2">
+           <p class="font-semibold text-[#333333] mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#FFE600] flex-shrink-0" fill="currentColor" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" /> <text x="12" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">
+              2
+             </text>
+            </svg><span>No empréstimo pessoal, o cliente recebe o dinheiro:</span></p>
+           <div class="space-y-2"><label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q2_etapa2" value="a" class="w-4 h-4 text-[#FFE600]"> <span class="ml-3 text-gray-700">Aos poucos, conforme usa</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q2_etapa2" value="b" class="w-4 h-4 text-[#FFE600]"> <span class="ml-3 text-gray-700">Apenas após pagar todas as parcelas</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="true"> <input type="radio" name="q2_etapa2" value="c" class="w-4 h-4 text-[#FFE600]"> <span class="ml-3 text-gray-700">De uma única vez</span> </label>
+           </div>
+          </div><!-- Pergunta 3 (oculta) -->
+          <div class="quiz-question hidden bg-white p-4 rounded-lg" data-question="3">
+           <p class="font-semibold text-[#333333] mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#FFE600] flex-shrink-0" fill="currentColor" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" /> <text x="12" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">
+              3
+             </text>
+            </svg><span>O limite de crédito indica:</span></p>
+           <div class="space-y-2"><label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="true"> <input type="radio" name="q3_etapa2" value="a" class="w-4 h-4 text-[#FFE600]"> <span class="ml-3 text-gray-700">Quanto o cliente pode gastar ou contratar de crédito</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q3_etapa2" value="b" class="w-4 h-4 text-[#FFE600]"> <span class="ml-3 text-gray-700">Quanto o cliente tem guardado</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q3_etapa2" value="c" class="w-4 h-4 text-[#FFE600]"> <span class="ml-3 text-gray-700">Um valor definido pelo cliente</span> </label>
+           </div>
+          </div>
+         </div>
+         <div class="quiz-result hidden mt-4 p-4 rounded-lg"></div>
+        </div>
+        <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-200"><button class="back-to-home flex items-center gap-2 text-gray-500 hover:text-[#FFE600] transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg><span class="font-medium">Voltar</span> </button> <button class="next-step flex items-center gap-2 px-5 py-2.5 bg-[#FFE600] text-[#333333] rounded-full font-semibold hover:bg-[#e6cf00] transition-all" data-next="3"> <span>Próxima etapa</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg></button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Página Etapa 3 -->
+    <section id="step-3-page" class="hidden page-transition py-8 px-4">
+     <div class="max-w-3xl mx-auto">
+      <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+       <div class="bg-gradient-to-r from-[#00BCFF] to-[#0090cc] p-6">
+        <div class="flex items-center gap-4">
+         <div class="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center">
+          <svg class="w-7 h-7 text-white" fill="currentColor" viewbox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" />
+          </svg>
+         </div>
+         <div><span class="text-white/80 text-sm font-medium">ETAPA 3</span>
+          <h2 class="text-xl font-bold text-white">Critérios de Créditos</h2>
+         </div>
+        </div>
+       </div>
+       <div class="p-6"><!-- Media Box: Áudio + Texto em uma única caixa -->
+        <div class="media-box mb-6 p-4 bg-[#00BCFF]/10 rounded-xl border border-[#00BCFF]/20"><!-- Áudio -->
+         <audio controls class="w-full mb-3" id="audio-3"><source src="https://qualistore-multi.atento.com.br/uploads/qualimidia/conteudo_22264/86d0a58578bcfa01e629b0590b82d226a21f64c30e2f573b1adbeb2f4b4ab4bc.mp3" type="audio/mpeg"> Seu navegador não suporta áudio.
+         </audio><!-- Botão para expandir texto --> <button class="text-toggle w-full flex items-center justify-between p-3 bg-white/50 border border-[#00BCFF]/20 rounded-lg hover:bg-white/70 transition-all">
+          <div class="text-left">
+           <h4 class="font-semibold text-[#333333] text-sm flex items-center gap-2">
+            <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" />
+            </svg> Acompanhar com texto</h4>
+          </div>
+          <svg class="w-5 h-5 text-[#333333] text-chevron" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg></button> <!-- Texto descritivo expansível -->
+         <div class="media-content hidden pt-3 mt-3 border-t border-[#00BCFF]/20">
+          <div class="space-y-3" id="text-content-3"><!-- Parágrafo 1 -->
+           <div class="border-l-3 border-[#00BCFF] pl-4">
+            <p class="text-[#333333] text-sm leading-relaxed">O cartão de crédito do Mercado Pago é uma solução prática que pode ser usada fora do marketplace, tendo o cartão virtual ou físico. Ele é de uso exclusivo do titular, funciona dentro de um limite de crédito aprovado em análise e pode ser utilizado para compras e pagamentos em estabelecimentos que aceitam cartão de crédito.</p>
+           </div><!-- Parágrafo 2 -->
+           <div class="border-l-3 border-[#00BCFF] pl-4">
+            <p class="text-[#333333] text-sm leading-relaxed">O cartão não tem taxa de emissão nem anuidade, não possui cobranças ocultas e oferece benefícios no Mercado Livre, como compras parceladas sem juros, unificados em uma fatura mensal.</p>
+           </div><!-- Parágrafo 3 -->
+           <div class="border-l-3 border-[#00BCFF] pl-4">
+            <p class="text-[#333333] text-sm leading-relaxed font-semibold">Agora que entendemos o cartão, é importante conhecer os outros produtos de crédito que atendemos em Credits e as diferenças entre eles.</p>
+           </div><!-- Parágrafo 4 -->
+           <div class="border-l-3 border-[#00BCFF] pl-4">
+            <p class="text-[#333333] text-sm leading-relaxed">Além do cartão, existe a linha de crédito, que permite ao cliente comprar sem precisar de um cartão de crédito. A solicitação não tem custo e o crédito é usado diretamente na compra.</p>
+           </div><!-- Parágrafo 5 -->
+           <div class="border-l-3 border-[#00BCFF] pl-4">
+            <p class="text-[#333333] text-sm leading-relaxed">Usuários com a linha de crédito também podem ter disponível o empréstimo para compradores, em que o cliente recebe um valor em dinheiro direto na conta para usar no Mercado Livre ou no Mercado Pago. Produtos com a linha de crédito possuem juros de utilização.</p>
+           </div><!-- Parágrafo 6 -->
+           <div class="border-l-3 border-[#00BCFF] pl-4">
+            <p class="text-[#333333] text-sm leading-relaxed">A diferença é que a linha de crédito da compra tem o limite restabelecido conforme o pagamento parcelado, enquanto o empréstimo apenas abate o valor pago.</p>
+           </div><!-- Parágrafo 7 -->
+           <div class="border-l-3 border-[#00BCFF] pl-4">
+            <p class="text-[#333333] text-sm leading-relaxed">E por fim, o empréstimo para vendedores, voltado para quem vende pelo Mercado Livre ou usa o Mercado Pago no negócio. O valor é liberado considerando o fluxo da empresa e pode ser usado para investir, comprar estoque ou organizar o caixa, com diferentes formas de pagamento.</p>
+           </div>
+          </div>
+         </div>
+        </div><!-- Quiz da Etapa 3 -->
+        <div class="mt-8 p-6 bg-gradient-to-r from-[#00BCFF]/5 to-[#FFE600]/5 rounded-xl border-2 border-[#00BCFF]/20" data-quiz="3">
+         <div class="flex items-center gap-3 mb-5">
+          <svg class="w-6 h-6 text-[#00BCFF]" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+          </svg>
+          <h4 class="font-bold text-lg text-[#333333]">Teste seu conhecimento</h4>
+         </div>
+         <div class="quiz-questions space-y-4"><!-- Pergunta 1 -->
+          <div class="quiz-question bg-white p-4 rounded-lg" data-question="1">
+           <p class="font-semibold text-[#333333] mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#00BCFF] flex-shrink-0" fill="currentColor" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" /> <text x="12" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">
+              1
+             </text>
+            </svg><span>O uso do cartão de crédito do Mercado Pago está condicionado a quê?</span></p>
+           <div class="space-y-2"><label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q1_etapa3" value="a" class="w-4 h-4 text-[#00BCFF]"> <span class="ml-3 text-gray-700">Apenas à solicitação do cliente</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="true"> <input type="radio" name="q1_etapa3" value="b" class="w-4 h-4 text-[#00BCFF]"> <span class="ml-3 text-gray-700">A um limite aprovado em análise de crédito</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q1_etapa3" value="c" class="w-4 h-4 text-[#00BCFF]"> <span class="ml-3 text-gray-700">Ao pagamento de uma taxa mensal</span> </label>
+           </div>
+          </div><!-- Pergunta 2 (oculta) -->
+          <div class="quiz-question hidden bg-white p-4 rounded-lg" data-question="2">
+           <p class="font-semibold text-[#333333] mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#00BCFF] flex-shrink-0" fill="currentColor" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" /> <text x="12" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">
+              2
+             </text>
+            </svg><span>Qual é a principal diferença da linha de crédito em relação ao cartão de crédito?</span></p>
+           <div class="space-y-2"><label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="true"> <input type="radio" name="q2_etapa3" value="a" class="w-4 h-4 text-[#00BCFF]"> <span class="ml-3 text-gray-700">Possui juros ao ser utilizada</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q2_etapa3" value="b" class="w-4 h-4 text-[#00BCFF]"> <span class="ml-3 text-gray-700">Não precisa ter cartão para comprar</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q2_etapa3" value="c" class="w-4 h-4 text-[#00BCFF]"> <span class="ml-3 text-gray-700">Possui anuidade obrigatória</span> </label>
+           </div>
+          </div><!-- Pergunta 3 (oculta) -->
+          <div class="quiz-question hidden bg-white p-4 rounded-lg" data-question="3">
+           <p class="font-semibold text-[#333333] mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#00BCFF] flex-shrink-0" fill="currentColor" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" /> <text x="12" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">
+              3
+             </text>
+            </svg><span>Para quem é destinado o empréstimo para vendedores?</span></p>
+           <div class="space-y-2"><label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="true"> <input type="radio" name="q3_etapa3" value="a" class="w-4 h-4 text-[#00BCFF]"> <span class="ml-3 text-gray-700">Para quem vende usando Mercado Livre ou Mercado Pago</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q3_etapa3" value="b" class="w-4 h-4 text-[#00BCFF]"> <span class="ml-3 text-gray-700">Apenas para pessoas físicas sem negócio</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q3_etapa3" value="c" class="w-4 h-4 text-[#00BCFF]"> <span class="ml-3 text-gray-700">Apenas para compras pessoais</span> </label>
+           </div>
+          </div>
+         </div>
+         <div class="quiz-result hidden mt-4 p-4 rounded-lg"></div>
+        </div>
+        <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-200"><button class="back-to-home flex items-center gap-2 text-gray-500 hover:text-[#00BCFF] transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg><span class="font-medium">Voltar</span> </button> <button class="next-step flex items-center gap-2 px-5 py-2.5 bg-[#00BCFF] text-white rounded-full font-semibold hover:bg-[#0090cc] transition-all" data-next="4"> <span>Próxima etapa</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg></button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section><!-- Página Etapa 4 -->
+    <section id="step-4-page" class="hidden page-transition py-8 px-4">
+     <div class="max-w-3xl mx-auto">
+      <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+       <div class="bg-gradient-to-r from-[#ffe404] to-[#e6cf00] p-6">
+        <div class="flex items-center gap-4">
+         <div class="w-14 h-14 rounded-full bg-[#333333]/10 flex items-center justify-center">
+          <svg class="w-7 h-7 text-[#333333]" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+          </svg>
+         </div>
+         <div><span class="text-[#333333]/70 text-sm font-medium">ETAPA 4</span>
+          <h2 class="text-xl font-bold text-[#333333]">Elegibilidade</h2>
+         </div>
+        </div>
+       </div>
+       <div class="p-6"><!-- Seção 1: Cartão de Crédito -->
+        <div class="mb-8">
+         <div class="flex items-center gap-3 mb-4 pb-3 border-b-2 border-[#00BCFF]/20">
+          <svg class="w-6 h-6 text-[#00BCFF]" fill="currentColor" viewbox="0 0 24 24"><path d="M19 6h-2V4a2 2 0 00-2-2H9a2 2 0 00-2 2v2H5a3 3 0 00-3 3v10a3 3 0 003 3h14a3 3 0 003-3V9a3 3 0 00-3-3zm-8-2h4v2h-4V4zm8 16H5V9h14v11z" />
+          </svg>
+          <h3 class="text-lg font-bold text-[#333333]">Elegibilidade - Cartão de Crédito</h3>
+         </div><!-- Media Box: Áudio + Texto -->
+         <div class="media-box p-4 bg-[#00BCFF]/10 rounded-xl border border-[#00BCFF]/20"><!-- Áudio -->
+          <audio controls class="w-full mb-3" id="audio-4-cartao"><source src="https://qualistore-multi.atento.com.br/uploads/qualimidia/conteudo_22264/2b57d312e7062d3a4326a0e46e805fbcb77af217ddcde4a2f3be62f332db287d.mp3" type="audio/mpeg"> Seu navegador não suporta áudio.
+          </audio><!-- Botão para expandir texto --> <button class="text-toggle w-full flex items-center justify-between p-3 bg-white/50 border border-[#00BCFF]/20 rounded-lg hover:bg-white/70 transition-all">
+           <div class="text-left">
+            <h4 class="font-semibold text-[#333333] text-sm flex items-center gap-2">
+             <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" />
+             </svg> Acompanhar com texto</h4>
+           </div>
+           <svg class="w-5 h-5 text-[#333333] text-chevron" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+           </svg></button> <!-- Texto descritivo expansível -->
+          <div class="media-content hidden pt-3 mt-3 border-t border-[#00BCFF]/20">
+           <div class="space-y-3" id="text-content-4-cartao">
+            <div class="border-l-3 border-[#00BCFF] pl-4">
+             <p class="text-[#333333] text-sm leading-relaxed">Agora vamos falar sobre quem pode solicitar o cartão de crédito.</p>
+            </div>
+            <div class="border-l-3 border-[#00BCFF] pl-4">
+             <p class="text-[#333333] text-sm leading-relaxed">Todos os usuários que forem pré-avaliados podem fazer a solicitação diretamente pelo aplicativo do Mercado Pago. Se o usuário estiver na lista de espera, é necessário aguardar uma oferta.</p>
+            </div>
+            <div class="border-l-3 border-[#00BCFF] pl-4">
+             <p class="text-[#333333] text-sm leading-relaxed">Caso exista uma oferta pendente, a solicitação também deve ser feita pelo app do Mercado Pago.</p>
+            </div>
+            <div class="border-l-3 border-[#00BCFF] pl-4">
+             <p class="text-[#333333] text-sm leading-relaxed">Como agente, você pode verificar internamente se o usuário tem limite aprovado acessando a seção de crédito, na administração de cartões, ou pelo CX, no fluxo Cartão de Crédito, Aplicações e Limites.</p>
+            </div>
+            <div class="border-l-3 border-[#00BCFF] pl-4">
+             <p class="text-[#333333] text-sm leading-relaxed">Se o usuário quiser o cartão, mas tiver ficado em atraso por mais de 90 dias, o cartão será bloqueado automaticamente e ele não poderá solicitar novamente naquele momento. Nesses casos, o usuário passa por nova análise de crédito e, se houver uma futura oferta, será comunicado pelo aplicativo.</p>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div><!-- Separador visual -->
+        <div class="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent my-8"></div><!-- Seção 2: Empréstimos -->
+        <div class="mb-8">
+         <div class="flex items-center gap-3 mb-4 pb-3 border-b-2 border-[#FFE600]/20">
+          <svg class="w-6 h-6 text-[#FFE600]" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" />
+          </svg>
+          <h3 class="text-lg font-bold text-[#333333]">Elegibilidade - Empréstimos</h3>
+         </div><!-- Media Box: Áudio + Texto -->
+         <div class="media-box p-4 bg-[#FFE600]/10 rounded-xl border border-[#FFE600]/20"><!-- Áudio -->
+          <audio controls class="w-full mb-3" id="audio-4-emprestimo"><source src="https://qualistore-multi.atento.com.br/uploads/qualimidia/conteudo_22264/391f1fc1e7f921d5b3037de7ce4c4148561ebe137c1adca142ca010d0eb64d28.mp3" type="audio/mpeg"> Seu navegador não suporta áudio.
+          </audio><!-- Botão para expandir texto --> <button class="text-toggle w-full flex items-center justify-between p-3 bg-white/50 border border-[#FFE600]/20 rounded-lg hover:bg-white/70 transition-all">
+           <div class="text-left">
+            <h4 class="font-semibold text-[#333333] text-sm flex items-center gap-2">
+             <svg class="w-4 h-4" fill="currentColor" viewbox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" />
+             </svg> Acompanhar com texto</h4>
+           </div>
+           <svg class="w-5 h-5 text-[#333333] text-chevron" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+           </svg></button> <!-- Texto descritivo expansível -->
+          <div class="media-content hidden pt-3 mt-3 border-t border-[#FFE600]/20">
+           <div class="space-y-3" id="text-content-4-emprestimo">
+            <div class="border-l-3 border-[#FFE600] pl-4">
+             <p class="text-[#333333] text-sm leading-relaxed">Agora, falando sobre a elegibilidade para empréstimos, é importante lembrar que temos ofertas tanto para consumidores quanto para vendedores.</p>
+            </div>
+            <div class="border-l-3 border-[#FFE600] pl-4">
+             <p class="text-[#333333] text-sm leading-relaxed">Para os consumidores, não existe uma meta específica a ser cumprida. A liberação do crédito depende de diferentes análises, como histórico financeiro, score de crédito e outros critérios internos.</p>
+            </div>
+            <div class="border-l-3 border-[#FFE600] pl-4">
+             <p class="text-[#333333] text-sm leading-relaxed">Já para os vendedores, a elegibilidade está ligada ao desempenho de vendas e ao perfil de risco. Alguns vendedores podem receber ofertas após análises da conta e do score de crédito.</p>
+            </div>
+            <div class="border-l-3 border-[#FFE600] pl-4">
+             <p class="text-[#333333] text-sm leading-relaxed">Como referência, o vendedor precisa, nos últimos três meses, vender mais de cem reais por mês, realizar ao menos uma venda por semana e manter um bom histórico de crédito, estando em dia com suas obrigações.</p>
+            </div>
+            <div class="border-l-3 border-[#FFE600] pl-4">
+             <p class="text-[#333333] text-sm leading-relaxed">É importante reforçar que, mesmo cumprindo esses requisitos, a liberação da linha de crédito não é garantida, pois tudo depende da análise final.</p>
+            </div>
+           </div>
+          </div>
+         </div>
+        </div><!-- Quiz da Etapa 4 - COM AS 6 PERGUNTAS CORRETAS -->
+        <div class="mt-8 p-6 bg-gradient-to-r from-[#ffe404]/10 to-[#00BCFF]/5 rounded-xl border-2 border-[#ffe404]/20" data-quiz="4">
+         <div class="flex items-center gap-3 mb-5">
+          <svg class="w-6 h-6 text-[#ffe404]" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+          </svg>
+          <h4 class="font-bold text-lg text-[#333333]">Quiz Final - Teste seu conhecimento</h4>
+         </div>
+         <div class="quiz-questions space-y-4"><!-- Pergunta 1: Quem pode ativar o cartão de crédito do Mercado Pago? -->
+          <div class="quiz-question bg-white p-4 rounded-lg" data-question="1">
+           <p class="font-semibold text-[#333333] mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#ffe404] flex-shrink-0" fill="currentColor" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" /> <text x="12" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">
+              1
+             </text>
+            </svg><span>Quem pode ativar o cartão de crédito do Mercado Pago?</span></p>
+           <div class="space-y-2"><label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q1_etapa4" value="a" class="w-4 h-4 text-[#ffe404]"> <span class="ml-3 text-gray-700">Qualquer usuário com conta ativa</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="true"> <input type="radio" name="q1_etapa4" value="b" class="w-4 h-4 text-[#ffe404]"> <span class="ml-3 text-gray-700">Apenas usuários pré-avaliados pelo Mercado Pago</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q1_etapa4" value="c" class="w-4 h-4 text-[#ffe404]"> <span class="ml-3 text-gray-700">Somente usuários com cartão físico</span> </label>
+           </div>
+          </div><!-- Pergunta 2: O que o usuário deve fazer se estiver na lista de espera? -->
+          <div class="quiz-question hidden bg-white p-4 rounded-lg" data-question="2">
+           <p class="font-semibold text-[#333333] mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#ffe404] flex-shrink-0" fill="currentColor" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" /> <text x="12" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">
+              2
+             </text>
+            </svg><span>O que o usuário deve fazer se estiver na lista de espera?</span></p>
+           <div class="space-y-2"><label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q2_etapa4" value="a" class="w-4 h-4 text-[#ffe404]"> <span class="ml-3 text-gray-700">Entrar em contato com o suporte</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q2_etapa4" value="b" class="w-4 h-4 text-[#ffe404]"> <span class="ml-3 text-gray-700">Criar uma nova conta</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="true"> <input type="radio" name="q2_etapa4" value="c" class="w-4 h-4 text-[#ffe404]"> <span class="ml-3 text-gray-700">Aguardar uma oferta no aplicativo</span> </label>
+           </div>
+          </div><!-- Pergunta 3: Onde o agente pode verificar se o usuário tem limite aprovado? -->
+          <div class="quiz-question hidden bg-white p-4 rounded-lg" data-question="3">
+           <p class="font-semibold text-[#333333] mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#ffe404] flex-shrink-0" fill="currentColor" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" /> <text x="12" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">
+              3
+             </text>
+            </svg><span>Onde o agente pode verificar se o usuário tem limite aprovado?</span></p>
+           <div class="space-y-2"><label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q3_etapa4" value="a" class="w-4 h-4 text-[#ffe404]"> <span class="ml-3 text-gray-700">Apenas no aplicativo do usuário</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="true"> <input type="radio" name="q3_etapa4" value="b" class="w-4 h-4 text-[#ffe404]"> <span class="ml-3 text-gray-700">Na seção de crédito ou pelo fluxo de Cartão de Crédito no CX</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q3_etapa4" value="c" class="w-4 h-4 text-[#ffe404]"> <span class="ml-3 text-gray-700">Somente por e-mail interno</span> </label>
+           </div>
+          </div><!-- Pergunta 4: Para consumidores, o que define a elegibilidade ao empréstimo? -->
+          <div class="quiz-question hidden bg-white p-4 rounded-lg" data-question="4">
+           <p class="font-semibold text-[#333333] mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#ffe404] flex-shrink-0" fill="currentColor" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" /> <text x="12" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">
+              4
+             </text>
+            </svg><span>Para consumidores, o que define a elegibilidade ao empréstimo?</span></p>
+           <div class="space-y-2"><label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q4_etapa4" value="a" class="w-4 h-4 text-[#ffe404]"> <span class="ml-3 text-gray-700">Cumprimento de metas fixas</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q4_etapa4" value="b" class="w-4 h-4 text-[#ffe404]"> <span class="ml-3 text-gray-700">Sorteio mensal</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="true"> <input type="radio" name="q4_etapa4" value="c" class="w-4 h-4 text-[#ffe404]"> <span class="ml-3 text-gray-700">Análises de crédito e score</span> </label>
+           </div>
+          </div><!-- Pergunta 5: Para vendedores, a elegibilidade ao empréstimo está relacionada a: -->
+          <div class="quiz-question hidden bg-white p-4 rounded-lg" data-question="5">
+           <p class="font-semibold text-[#333333] mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#ffe404] flex-shrink-0" fill="currentColor" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" /> <text x="12" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">
+              5
+             </text>
+            </svg><span>Para vendedores, a elegibilidade ao empréstimo está relacionada a:</span></p>
+           <div class="space-y-2"><label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="true"> <input type="radio" name="q5_etapa4" value="a" class="w-4 h-4 text-[#ffe404]"> <span class="ml-3 text-gray-700">Desempenho de vendas e perfil de risco</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q5_etapa4" value="b" class="w-4 h-4 text-[#ffe404]"> <span class="ml-3 text-gray-700">Apenas ao número de seguidores</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q5_etapa4" value="c" class="w-4 h-4 text-[#ffe404]"> <span class="ml-3 text-gray-700">Somente ao tempo de cadastro</span> </label>
+           </div>
+          </div><!-- Pergunta 6: Para vendedores, cumprir requisitos garante liberação? -->
+          <div class="quiz-question hidden bg-white p-4 rounded-lg" data-question="6">
+           <p class="font-semibold text-[#333333] mb-3 flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#ffe404] flex-shrink-0" fill="currentColor" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2" /> <text x="12" y="16" text-anchor="middle" font-size="12" font-weight="bold" fill="currentColor">
+              6
+             </text>
+            </svg><span>Para vendedores, cumprir requisitos garante liberação?</span></p>
+           <div class="space-y-2"><label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q6_etapa4" value="a" class="w-4 h-4 text-[#ffe404]"> <span class="ml-3 text-gray-700">Sim, é automático</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="true"> <input type="radio" name="q6_etapa4" value="b" class="w-4 h-4 text-[#ffe404]"> <span class="ml-3 text-gray-700">Não, depende da análise final</span> </label> <label class="flex items-center p-2 hover:bg-gray-50 rounded cursor-pointer transition quiz-option" data-correct="false"> <input type="radio" name="q6_etapa4" value="c" class="w-4 h-4 text-[#ffe404]"> <span class="ml-3 text-gray-700">Apenas se solicitarem por e-mail</span> </label>
+           </div>
+          </div>
+         </div>
+         <div class="quiz-result hidden mt-4 p-4 rounded-lg"></div>
+        </div><!-- Conclusão da jornada -->
+        <div class="mt-6 p-5 bg-gradient-to-r from-[#00BCFF]/10 to-[#ffe404]/10 rounded-xl border border-[#00BCFF]/20">
+         <div class="flex items-center gap-3 mb-3">
+          <svg class="w-8 h-8 text-[#00BCFF]" fill="currentColor" viewbox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+          </svg>
+          <h4 class="font-bold text-[#333333]">Parabéns por completar a jornada!</h4>
+         </div>
+         <p class="text-sm text-gray-600">Você agora possui todo o conhecimento necessário sobre crédito. Continue explorando as etapas para revisar o conteúdo quando precisar.</p>
+        </div>
+        <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-200"><button class="back-to-home flex items-center gap-2 text-gray-500 hover:text-[#ffe404] transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg><span class="font-medium">Voltar</span> </button> <button class="complete-journey flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-[#00BCFF] to-[#ffe404] text-[#333333] rounded-full font-semibold hover:shadow-lg transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg><span>Concluir Jornada</span> </button>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+   </main>
+  </div>
+  <script>
+    // Default configuration
+    const defaultConfig = {
+      main_title: 'Sua Jornada Creditões',
+      step_1_title: 'A história do cartão de crédito',
+      step_2_title: 'Cartão de crédito e Empréstimo - Limite de crédito',
+      step_3_title: 'Critérios de Créditos',
+      step_4_title: 'Elegibilidade',
+      background_color: '#f9fafb',
+      primary_color: '#00BCFF',
+      secondary_color: '#FFE600',
+      text_color: '#333333',
+      accent_color: '#ffe404'
+    };
+
+    // App state
+    let currentStep = 0;
+    let visitedSteps = new Set();
+
+    // Initialize SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange: async (config) => {
+          const mainTitle = document.getElementById('main-title');
+          if (mainTitle) {
+            mainTitle.textContent = config.main_title || defaultConfig.main_title;
+          }
+
+          const stepTitles = ['step-1-title', 'step-2-title', 'step-3-title', 'step-4-title'];
+          stepTitles.forEach((id, index) => {
+            const el = document.getElementById(id);
+            if (el) {
+              const configKey = `step_${index + 1}_title`;
+              el.textContent = config[configKey] || defaultConfig[configKey];
+            }
+          });
+        },
+        mapToCapabilities: (config) => ({
+          recolorables: [
+            {
+              get: () => config.background_color || defaultConfig.background_color,
+              set: (value) => {
+                config.background_color = value;
+                window.elementSdk.setConfig({ background_color: value });
+              }
+            },
+            {
+              get: () => config.primary_color || defaultConfig.primary_color,
+              set: (value) => {
+                config.primary_color = value;
+                window.elementSdk.setConfig({ primary_color: value });
+              }
+            },
+            {
+              get: () => config.secondary_color || defaultConfig.secondary_color,
+              set: (value) => {
+                config.secondary_color = value;
+                window.elementSdk.setConfig({ secondary_color: value });
+              }
+            },
+            {
+              get: () => config.text_color || defaultConfig.text_color,
+              set: (value) => {
+                config.text_color = value;
+                window.elementSdk.setConfig({ text_color: value });
+              }
+            },
+            {
+              get: () => config.accent_color || defaultConfig.accent_color,
+              set: (value) => {
+                config.accent_color = value;
+                window.elementSdk.setConfig({ accent_color: value });
+              }
+            }
+          ],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['main_title', config.main_title || defaultConfig.main_title],
+          ['step_1_title', config.step_1_title || defaultConfig.step_1_title],
+          ['step_2_title', config.step_2_title || defaultConfig.step_2_title],
+          ['step_3_title', config.step_3_title || defaultConfig.step_3_title],
+          ['step_4_title', config.step_4_title || defaultConfig.step_4_title]
+        ])
+      });
+    }
+
+    // Navigation functions
+    function showPage(pageId) {
+      const pages = ['home-page', 'step-1-page', 'step-2-page', 'step-3-page', 'step-4-page'];
+      pages.forEach(id => {
+        const page = document.getElementById(id);
+        if (page) {
+          page.classList.add('hidden');
+        }
+      });
+      
+      const targetPage = document.getElementById(pageId);
+      if (targetPage) {
+        targetPage.classList.remove('hidden');
+        document.getElementById('app-wrapper').scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function updateNavDots() {
+      const dots = document.querySelectorAll('.nav-dot');
+      dots.forEach((dot, index) => {
+        const stepNum = index + 1;
+        dot.classList.remove('active');
+        
+        if (stepNum === currentStep) {
+          dot.classList.add('active');
+          dot.style.backgroundColor = '#FFE600';
+          dot.style.borderColor = '#ffffff';
+        } else if (visitedSteps.has(stepNum)) {
+          dot.style.backgroundColor = '#00BCFF';
+          dot.style.borderColor = '#ffffff';
+        } else {
+          dot.style.backgroundColor = 'rgba(255, 255, 255, 0.4)';
+          dot.style.borderColor = 'rgba(255, 255, 255, 0.6)';
+        }
+      });
+      
+      for (let i = 1; i <= 3; i++) {
+        const bar = document.getElementById(`bar-${i}`);
+        if (bar) {
+          const barFill = bar.querySelector('div');
+          if (visitedSteps.has(i + 1)) {
+            barFill.style.width = '100%';
+          } else if (currentStep === i + 1) {
+            barFill.style.width = '50%';
+          } else {
+            barFill.style.width = '0%';
+          }
+        }
+      }
+    }
+
+    function updateProgress() {
+      const progressBar = document.getElementById('progress-bar');
+      const progressText = document.getElementById('progress-text');
+      const percentage = (visitedSteps.size / 4) * 100;
+      
+      if (progressBar) {
+        progressBar.style.width = `${percentage}%`;
+      }
+      if (progressText) {
+        progressText.textContent = `${Math.round(percentage)}% completo`;
+      }
+    }
+
+    function navigateToStep(stepNum) {
+      currentStep = stepNum;
+      if (stepNum > 0) {
+        visitedSteps.add(stepNum);
+      }
+      
+      if (stepNum === 0) {
+        showPage('home-page');
+      } else {
+        showPage(`step-${stepNum}-page`);
+      }
+      
+      updateNavDots();
+      updateProgress();
+    }
+
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', () => {
+      const homeBtn = document.getElementById('home-btn');
+      if (homeBtn) {
+        homeBtn.addEventListener('click', () => navigateToStep(0));
+      }
+
+      document.querySelectorAll('.nav-dot').forEach(dot => {
+        dot.addEventListener('click', (e) => {
+          const step = parseInt(e.target.dataset.step);
+          navigateToStep(step);
+        });
+      });
+
+      document.querySelectorAll('.step-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          const step = parseInt(card.dataset.step);
+          navigateToStep(step);
+        });
+      });
+
+      document.querySelectorAll('.back-to-home').forEach(btn => {
+        btn.addEventListener('click', () => navigateToStep(0));
+      });
+
+      document.querySelectorAll('.next-step').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const nextStep = parseInt(btn.dataset.next);
+          navigateToStep(nextStep);
+        });
+      });
+
+      document.querySelectorAll('.text-toggle').forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          const mediaContent = toggle.nextElementSibling;
+          const chevron = toggle.querySelector('.text-chevron');
+          
+          if (mediaContent && mediaContent.classList.contains('media-content')) {
+            mediaContent.classList.toggle('hidden');
+            if (chevron) {
+              chevron.classList.toggle('rotated');
+            }
+          }
+        });
+      });
+
+      document.querySelectorAll('[data-quiz]').forEach((quizContainer) => {
+        const quizOptions = quizContainer.querySelectorAll('.quiz-option');
+        
+        quizOptions.forEach((option) => {
+          option.addEventListener('click', () => {
+            const label = option;
+            const input = label.querySelector('input[type="radio"]');
+            const isCorrect = option.dataset.correct === 'true';
+            const question = label.closest('.quiz-question');
+            const quizData = quizContainer.querySelector('.quiz-questions');
+            const allQuestions = quizData.querySelectorAll('.quiz-question');
+            const currentQuestionNum = parseInt(question.dataset.question);
+            
+            if (question.classList.contains('answered')) {
+              return;
+            }
+            
+            question.classList.add('answered');
+            input.checked = true;
+            
+            if (isCorrect) {
+              label.classList.add('bg-green-50');
+              label.style.borderLeft = '3px solid #10b981';
+            } else {
+              label.classList.add('bg-red-50');
+              label.style.borderLeft = '3px solid #ef4444';
+            }
+            
+            question.querySelectorAll('.quiz-option').forEach(opt => {
+              opt.style.pointerEvents = 'none';
+              opt.style.opacity = '0.6';
+            });
+            
+            if (currentQuestionNum < allQuestions.length) {
+              setTimeout(() => {
+                const nextQuestion = quizData.querySelector(`.quiz-question[data-question="${currentQuestionNum + 1}"]`);
+                if (nextQuestion) {
+                  nextQuestion.classList.remove('hidden');
+                  nextQuestion.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+              }, 800);
+            } else {
+              setTimeout(() => {
+                calculateQuizResult(quizContainer);
+              }, 800);
+            }
+          });
+        });
+      });
+      
+      function calculateQuizResult(quizContainer) {
+        const questions = quizContainer.querySelectorAll('.quiz-question');
+        let correct = 0;
+        
+        questions.forEach((question) => {
+          const checkedOption = question.querySelector('.quiz-option input[type="radio"]:checked').closest('.quiz-option');
+          if (checkedOption && checkedOption.dataset.correct === 'true') {
+            correct++;
+          }
+        });
+        
+        const percentage = (correct / questions.length) * 100;
+        const resultDiv = quizContainer.querySelector('.quiz-result');
+        
+        if (percentage === 100) {
+          resultDiv.className = 'quiz-result mt-4 p-4 rounded-lg bg-green-50 border-l-4 border-green-500';
+          resultDiv.innerHTML = `
+            <p class="font-semibold text-green-800">🎉 Perfeito! Você acertou todas as questões!</p>
+            <p class="text-sm text-green-700 mt-1">Você está preparado para continuar a jornada.</p>
+          `;
+        } else if (percentage >= 66) {
+          resultDiv.className = 'quiz-result mt-4 p-4 rounded-lg bg-yellow-50 border-l-4 border-yellow-500';
+          resultDiv.innerHTML = `
+            <p class="font-semibold text-yellow-800">👍 Bom trabalho! Você acertou ${correct} de ${questions.length} questões.</p>
+            <p class="text-sm text-yellow-700 mt-1">Revise o conteúdo se tiver dúvidas e continue sua jornada!</p>
+          `;
+        } else {
+          resultDiv.className = 'quiz-result mt-4 p-4 rounded-lg bg-red-50 border-l-4 border-red-500';
+          resultDiv.innerHTML = `
+            <p class="font-semibold text-red-800">Vamos lá! Acertou apenas ${correct} de ${questions.length}.</p>
+            <p class="text-sm text-red-700 mt-1">Revise o conteúdo da etapa e retorne ao quiz para tentar novamente.</p>
+          `;
+        }
+        
+        resultDiv.classList.remove('hidden');
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      const completeBtn = document.querySelector('.complete-journey');
+      if (completeBtn) {
+        completeBtn.addEventListener('click', () => {
+          visitedSteps.add(1);
+          visitedSteps.add(2);
+          visitedSteps.add(3);
+          visitedSteps.add(4);
+          updateProgress();
+          navigateToStep(0);
+        });
+      }
+
+      updateNavDots();
+      updateProgress();
+    });
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c84023bc713a8d4',t:'MTc3MDE0MzUyMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
